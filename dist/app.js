@@ -1,30 +1,69 @@
+// Library filter
 const filters = document.querySelectorAll('[data-filter]');
-const cards = document.querySelectorAll('.work-card');
+const rows = document.querySelectorAll('.library li');
+const status = document.getElementById('lib-status');
 filters.forEach(button => button.addEventListener('click', () => {
-  filters.forEach(item => {item.classList.toggle('selected', item === button); item.setAttribute('aria-pressed', String(item === button));});
+  const filter = button.dataset.filter;
   let count = 0;
-  cards.forEach(card => {const show = button.dataset.filter === 'all' || card.dataset.category.split(' ').includes(button.dataset.filter); card.hidden = !show; if(show) count++;});
-  document.querySelector('#work-count').textContent = `${count} ${count === 1 ? 'piece' : 'pieces'}`;
+  filters.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+  rows.forEach(row => {
+    const show = filter === 'all' || row.dataset.category.split(' ').includes(filter);
+    row.hidden = !show;
+    row.classList.remove('in');
+    if (show) { count++; void row.offsetWidth; row.classList.add('in'); }
+  });
+  status.textContent = `Showing ${count} ${count === 1 ? 'sample' : 'samples'}`;
 }));
-const menu = document.querySelector('.menu-button');
-const sidebar = document.querySelector('.sidebar');
-const mobileLayout = matchMedia('(max-width: 760px)');
-function syncSidebar(){sidebar.inert=mobileLayout.matches && !sidebar.classList.contains('open');}
-function closeMenu(){sidebar.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Open navigation');syncSidebar();}
-mobileLayout.addEventListener('change',closeMenu);
-syncSidebar();
-menu.addEventListener('click', () => {const open = sidebar.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open ? 'Close navigation' : 'Open navigation');syncSidebar();});
-document.addEventListener('click', event => {if(!sidebar.contains(event.target) && !menu.contains(event.target)) closeMenu();});
-document.addEventListener('keydown', event => {if(event.key === 'Escape') {closeMenu();menu.focus();}});
-document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', closeMenu));
-const labels = {home:'Welcome',work:'Selected work',library:'Writing library',strategy:'Content thinking',services:'Services',approach:'My approach',about:'About me',contact:'Get in touch'};
-const observer = new IntersectionObserver(entries => {entries.forEach(entry => {if(entry.isIntersecting){document.querySelector('#current-section').textContent=labels[entry.target.id];document.querySelectorAll('nav a, .services-nav').forEach(link=>{const active=link.hash===`#${entry.target.id}`;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}});},{rootMargin:'-10% 0px -65% 0px',threshold:0});
-document.querySelectorAll('main section[id]').forEach(section=>observer.observe(section));
-document.querySelectorAll('.services-nav').forEach(link=>link.addEventListener('click',closeMenu));
-document.querySelectorAll('a[href$="-notes"]').forEach(link=>link.addEventListener('click',()=>{const detail=document.getElementById(link.hash.slice(1));if(detail)detail.open=true;}));
-const themeToggle=document.querySelector('.theme-toggle');
-function syncTheme(){const dark=document.documentElement.dataset.theme==='dark';themeToggle.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');themeToggle.querySelector('.theme-label').textContent=dark?'Light':'Dark';document.querySelector('meta[name="theme-color"]').content=dark?'#191919':'#ffffff';}
-themeToggle.addEventListener('click',()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('portfolio-theme',document.documentElement.dataset.theme);}catch{}syncTheme();});
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change',event=>{try{if(localStorage.getItem('portfolio-theme'))return;}catch{}document.documentElement.dataset.theme=event.matches?'dark':'light';syncTheme();});
-syncTheme();
 
+// Current section in the top bar + index highlight
+const barN = document.getElementById('current-n');
+const barLabel = document.getElementById('current-label');
+const indexLinks = document.querySelectorAll('.index a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const s = entry.target;
+    barN.textContent = s.dataset.n ? `${s.dataset.n}.` : '';
+    barLabel.textContent = s.dataset.label || 'Information for editors';
+    indexLinks.forEach(a => {
+      if (a.hash === `#${s.id}`) a.setAttribute('aria-current', 'location');
+      else a.removeAttribute('aria-current');
+    });
+  });
+}, { rootMargin: '-35% 0px -60% 0px' });
+document.querySelectorAll('#top, .section[id]').forEach(s => observer.observe(s));
+
+// Copy email
+const copy = document.querySelector('.copy');
+copy?.addEventListener('click', async () => {
+  const label = copy.querySelector('.copy-label');
+  try {
+    await navigator.clipboard.writeText(copy.dataset.email);
+    label.textContent = 'Copied';
+    copy.classList.add('done');
+  } catch {
+    label.textContent = 'Select the address below';
+  }
+  setTimeout(() => { label.textContent = 'Copy address'; copy.classList.remove('done'); }, 2200);
+});
+
+// Theme
+const root = document.documentElement;
+const toggle = document.querySelector('.theme-toggle');
+const meta = document.querySelector('meta[name="theme-color"]');
+function syncTheme() {
+  const dark = root.dataset.theme === 'dark';
+  toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  meta.content = dark ? '#0c0d0f' : '#eceef0';
+}
+toggle.addEventListener('click', () => {
+  root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+  try { localStorage.setItem('portfolio-theme', root.dataset.theme); } catch {}
+  syncTheme();
+});
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  try { if (localStorage.getItem('portfolio-theme')) return; } catch {}
+  root.dataset.theme = e.matches ? 'dark' : 'light';
+  syncTheme();
+});
+syncTheme();

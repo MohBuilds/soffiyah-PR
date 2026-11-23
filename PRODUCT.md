@@ -11,7 +11,7 @@ A modern portfolio for Sophiat Ismail. Following the user's accepted critique, l
 The original fertility, gynaecological examination, and diabetes documents were read through the Drive connector. Three project spotlights describe their observable editorial structure and reader focus, using short source excerpts. They do not claim documented client briefs, clinical review, or measured campaign results. Four Substack links remain excluded pending confirmation of Sophiat's contribution because the publications use other names.
 
 ## Brand commitments
-Clean, modern, premium, following Notion's visual language.
+Clean, modern, premium, and concise. Notion's visual language was retired in the November 2026 redesign in favour of the "patient leaflet" world (see DESIGN.md). Primary visitor: editors and content leads at health & wellness brands; primary action: email Sophiat. Keep copy short: one line per piece, her own sentences lead.
 
 ## Evidence
 Original Notion portfolio: https://www.notion.so/Sophiat-Ismail-Content-Writing-Portfolio-1505b540848d4fc8a46dd25b93a8d717
