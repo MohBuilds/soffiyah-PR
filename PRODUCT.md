@@ -5,7 +5,10 @@
 web
 
 ## Purpose
-A modern portfolio for Sophiat Ismail, targeting content strategist and writer roles, as confirmed by the user.
+A modern portfolio for Sophiat Ismail. Following the user's accepted critique, lead with the evidenced health and wellness writing specialization. Support strategic aspirations with a clearly identified independent portfolio exercise, rather than implying commissioned strategy experience.
+
+## Featured evidence
+The original fertility, gynaecological examination, and diabetes documents were read through the Drive connector. Three project spotlights describe their observable editorial structure and reader focus, using short source excerpts. They do not claim documented client briefs, clinical review, or measured campaign results. Four Substack links remain excluded pending confirmation of Sophiat's contribution because the publications use other names.
 
 ## Brand commitments
 Clean, modern, premium, following Notion's visual language.

@@ -17,10 +17,11 @@ menu.addEventListener('click', () => {const open = sidebar.classList.toggle('ope
 document.addEventListener('click', event => {if(!sidebar.contains(event.target) && !menu.contains(event.target)) closeMenu();});
 document.addEventListener('keydown', event => {if(event.key === 'Escape') {closeMenu();menu.focus();}});
 document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', closeMenu));
-const labels = {home:'Welcome',work:'Selected work',services:'Services',approach:'My approach',about:'About me',contact:'Get in touch'};
+const labels = {home:'Welcome',work:'Selected work',library:'Writing library',strategy:'Content thinking',services:'Services',approach:'My approach',about:'About me',contact:'Get in touch'};
 const observer = new IntersectionObserver(entries => {entries.forEach(entry => {if(entry.isIntersecting){document.querySelector('#current-section').textContent=labels[entry.target.id];document.querySelectorAll('nav a, .services-nav').forEach(link=>{const active=link.hash===`#${entry.target.id}`;link.classList.toggle('active',active);if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');});}});},{rootMargin:'-10% 0px -65% 0px',threshold:0});
 document.querySelectorAll('main section[id]').forEach(section=>observer.observe(section));
-document.querySelector('.services-nav').addEventListener('click', closeMenu);
+document.querySelectorAll('.services-nav').forEach(link=>link.addEventListener('click',closeMenu));
+document.querySelectorAll('a[href$="-notes"]').forEach(link=>link.addEventListener('click',()=>{const detail=document.getElementById(link.hash.slice(1));if(detail)detail.open=true;}));
 const themeToggle=document.querySelector('.theme-toggle');
 function syncTheme(){const dark=document.documentElement.dataset.theme==='dark';themeToggle.setAttribute('aria-label',dark?'Switch to light mode':'Switch to dark mode');themeToggle.querySelector('.theme-label').textContent=dark?'Light':'Dark';document.querySelector('meta[name="theme-color"]').content=dark?'#191919':'#ffffff';}
 themeToggle.addEventListener('click',()=>{document.documentElement.dataset.theme=document.documentElement.dataset.theme==='dark'?'light':'dark';try{localStorage.setItem('portfolio-theme',document.documentElement.dataset.theme);}catch{}syncTheme();});
