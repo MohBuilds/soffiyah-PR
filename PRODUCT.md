@@ -12,7 +12,10 @@ Clean, modern, premium, following Notion's visual language.
 
 ## Evidence
 Original Notion portfolio: https://www.notion.so/Sophiat-Ismail-Content-Writing-Portfolio-1505b540848d4fc8a46dd25b93a8d717
-Five Google Docs samples on fertility, nutrition, pregnancy, and prenatal appointments. Original focus: health, wellness, lifestyle. No verified performance metrics, testimonials, portrait, employment history, or email supplied. Do not invent them. Strategy service copy is proposed positioning, not a claim of past projects.
+Twelve Google Docs samples supplied by the user, covering reproductive health, diabetes, nutrition, yoga, and starting a YouTube channel. Original focus: health, wellness, lifestyle. Confirmed services: blog and article writing, health and wellness content, lifestyle writing, SEO-friendly articles, editing and proofreading. Confirmed contact: sophiatismail19vet@gmail.com. No verified performance metrics, testimonials, portrait, or employment history supplied. Do not invent them. Strategy positioning follows the confirmed target role, not a claim of past strategy projects.
+
+## Interaction
+User requested light and dark mode. Respect system preference initially, save manual choice locally, and expose an accessible theme toggle.
 
 ## Stack
 Static HTML, CSS and JavaScript selected for a lightweight portfolio. No dependencies required.
