@@ -1,3 +1,5 @@
 outputs/
 .impeccable/review/
 node_modules/
+.gemini/
+.impeccable/questions/

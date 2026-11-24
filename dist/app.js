@@ -24,6 +24,33 @@ filters.forEach(button => button.addEventListener('click', () => {
   t.finished.finally(() => rows.forEach(row => { row.style.viewTransitionName = ''; }));
 }));
 
+// Library preview: show her own line from the sample on hover or keyboard focus
+const peek = document.querySelector('.peek');
+const peekText = peek?.querySelector('.peek-text');
+const library = document.getElementById('library');
+const canPeek = matchMedia('(hover: hover) and (min-width: 981px)');
+let peekTimer;
+function showPeek(link) {
+  if (!peek || !canPeek.matches) return;
+  clearTimeout(peekTimer);
+  peekTimer = setTimeout(() => {
+    const row = link.getBoundingClientRect();
+    const box = library.getBoundingClientRect();
+    peekText.textContent = link.dataset.excerpt;
+    peek.querySelector('.peek-src').textContent = link.dataset.source || 'Google Docs';
+    peek.style.setProperty('--peek-y', `${Math.round(row.bottom - box.top + 6)}px`);
+    peek.classList.add('show');
+  }, peek.classList.contains('show') ? 0 : 140);
+}
+function hidePeek() { clearTimeout(peekTimer); peek?.classList.remove('show'); }
+document.querySelectorAll('.library a[data-excerpt]').forEach(link => {
+  link.addEventListener('pointerenter', () => showPeek(link));
+  link.addEventListener('focus', () => showPeek(link));
+  link.addEventListener('blur', hidePeek);
+});
+document.querySelector('.library')?.addEventListener('pointerleave', hidePeek);
+filters.forEach(b => b.addEventListener('click', hidePeek));
+
 // Current section in the top bar + index highlight
 const barN = document.getElementById('current-n');
 const barLabel = document.getElementById('current-label');

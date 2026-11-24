@@ -130,6 +130,16 @@ html{scrollbar-color:var(--rule-2) var(--desk)}
 .library li[hidden]{display:none}
 .feature:last-child,.library li:last-child{border-bottom:0}
 
+/* Library preview: a small boxed leaflet note with her own line, on hover or focus */
+#library{position:relative}
+.peek{position:absolute;right:var(--pad);top:0;width:min(24rem,40%);padding:1.1rem 1.25rem 1rem;background:var(--sheet);border:1.5px solid var(--ink);border-radius:3px;box-shadow:0 2px 4px rgba(20,22,26,.05),0 18px 40px -16px rgba(20,22,26,.28);pointer-events:none;z-index:3;opacity:0;transform:translateY(var(--peek-y,0)) translateY(6px);clip-path:inset(0 0 100% 0);transition:opacity .2s,clip-path .4s var(--ease),transform .45s var(--ease)}
+.peek.show{opacity:1;clip-path:inset(-20px -20px -40px -20px);transform:translateY(var(--peek-y,0))}
+.peek-text{font-size:1.08rem;line-height:1.35;letter-spacing:-.015em;font-weight:500;color:var(--ink);text-wrap:pretty}
+.peek-text::before{content:"“";color:var(--blue)}
+.peek-text::after{content:"”";color:var(--blue)}
+.peek-meta{margin-top:.75rem;font-size:.8rem;color:var(--muted)}
+@media (hover:none),(max-width:980px){.peek{display:none}}
+
 /* 3. Content thinking */
 .thinking{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);gap:clamp(2rem,5vw,5rem);margin-top:clamp(2rem,4vw,3rem)}
 .thinking-copy h3{font-size:clamp(1.35rem,2vw,1.6rem);line-height:1.2;letter-spacing:-.02em;font-weight:650;text-wrap:balance}

@@ -20,8 +20,8 @@ Schibsted Grotesk only (Google Fonts, variable 400–800).
 ## Structure
 
 1. Hero: statement, one-sentence intro, Email me + Read the work. The boxed "What is in this leaflet" index on the right is the site navigation.
-2. Selected work: three rows, numbered 1.1–1.3. Each has her verbatim sentence large, then title, one line, topic and a link.
-3. All twelve samples: always-visible ruled list with All / Health / Lifestyle segmented filter.
+2. Selected work: three rows, numbered 1.1–1.3 (gynaecological exam, lifestyle & fertility, the uterus in pregnancy). Each has her verbatim sentence large, then title, one line, topic and a link.
+3. All samples: always-visible ruled list of 12 Google Docs articles plus 4 Substack newsletters (type "Newsletter", topic column shows the publication), with All / Health / Lifestyle segmented filter. On hover or keyboard focus (desktop, hover-capable pointers only), a boxed note under the row shows a verbatim line from that sample (`data-excerpt`; `data-source` names where the link opens).
 4. Content thinking: the independent exercise, explicitly labelled, in 3 boxed steps.
 5. Services: two-column ruled definition list.
 6. About me: blue lead line "Clarity is a form of care." plus two paragraphs (approach folded in).
@@ -34,6 +34,12 @@ Schibsted Grotesk only (Google Fonts, variable 400–800).
 - Theme follows the system first, the manual toggle is saved to localStorage, and the meta theme-color syncs.
 - Motion: crease draw-in on load, row fade-in when filtering, small transform hovers. All are disabled under `prefers-reduced-motion`.
 - Breakpoints: 980px (hero, thinking and about stack; library drops the topic column) and 640px (top-bar label hidden, full-bleed sheet, steps stack).
+
+## Sharing
+
+- `dist/og.png` (1200×630) is the social preview: the hero statement plus the contents box, rendered from an HTML card with headless Chrome. It is not AI-generated. Regenerate it the same way when the hero copy changes.
+- `dist/favicon.svg`: white “S.” on leaflet blue.
+- Open Graph and Twitter tags are in `<head>`. `og:image` is relative until the live domain is known.
 
 ## Content rules
 
